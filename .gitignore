@@ -1,0 +1,19 @@
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+classes/
+logs/
+*. Log
+
+# Graqle:
+.gradle/
+build/
+
+# Mac OC
+.DS_Store
+
+# zipfiles
+*.zip

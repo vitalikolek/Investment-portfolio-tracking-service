@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group 'org.geekhub.vitalii'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'com.yahoofinance-api:YahooFinanceAPI:3.17.0'
+}
+
+test {
+    useJUnitPlatform()
+}

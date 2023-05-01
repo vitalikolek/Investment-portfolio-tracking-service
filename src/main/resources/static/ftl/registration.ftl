@@ -3,25 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
-<form id="register">
-    Registration
-    <div><label> User Name : <input id="username" type="text" name="username"/> </label></div>
-    <div><label> Email : <input id="email" type="text" name="email"/> </label></div>
-    <div><label> Password: <input id="password" type="password" name="password"/> </label></div>
-    <div>
-        <label>
-            <select id="role" name="role">
-                <option value="ROLE_USER" selected>USER</option>
-                <option value="ROLE_COMPANY">COMPANY</option>
+<div class="container">
+    <form id="register">
+        <h1 class="mb-3">Registration</h1>
+        <div class="mb-3">
+            <label class="form-label">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role:</label>
+            <select id="role" class="form-select" name="role">
+                <option value="ROLE_USER" selected>User</option>
+                <option value="ROLE_COMPANY">Company</option>
             </select>
-        </label>
-    </div>
-    <div><input type="submit" value="Sign In"/></div>
-    <a href="/registration">Log</a>
-</form>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Sign In</button>
+        <p>Already registered? <a href="/login">Log in</a></p>
+    </form>
+</div>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

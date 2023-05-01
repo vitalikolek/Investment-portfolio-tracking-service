@@ -70,7 +70,7 @@ public class ExcelService {
 
             double value = customerStock.getAmount().doubleValue() * stock.getQuote().getPrice().doubleValue();
             excelStocks.add(new ExcelCustomerStockDTO(customerStock.getSymbol(), stock.getName(), customerStock.getType(),
-                    customerStock.getAmount().doubleValue(), value));
+                customerStock.getAmount().doubleValue(), value));
         }
 
         return excelStocks;

@@ -20,16 +20,12 @@ public class CryptoService {
         this.cryptoRepository = cryptoRepository;
     }
 
-    public int getPage(int page) {
-        return page;
-    }
-
     public int getPageCount() {
         return (int) Math.ceil((double) cryptoRepository.cryptocurrenciesCount() / pageSize);
     }
 
     public List<StockDTO> getCrypto(Integer page) {
-        int offset = (getPage(page) - 1) * pageSize;
+        int offset = (page - 1) * pageSize;
         List<String> cryptoSymbols = cryptoRepository.getCryptoSymbols(pageSize, offset);
         Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(cryptoSymbols);
         return StockHelper.makeStockDTOSFromStocks(stockMap);

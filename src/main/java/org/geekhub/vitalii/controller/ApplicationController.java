@@ -28,7 +28,7 @@ public class ApplicationController {
 
     @GetMapping("/crypto")
     public String crypto(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
-        model.addAttribute("currentPage", cryptoService.getPage(page));
+        model.addAttribute("currentPage", page);
         model.addAttribute("pageCount", cryptoService.getPageCount());
         return "crypto";
     }

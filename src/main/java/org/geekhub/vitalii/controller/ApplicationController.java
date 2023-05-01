@@ -27,9 +27,9 @@ public class ApplicationController {
     }
 
     @GetMapping("/crypto")
-    public String crypto(Model model, @RequestParam(name = "limit", defaultValue = "10") Integer limit,
-                        @RequestParam(name = "offset", defaultValue = "0") Integer offset) {
-        model.addAttribute("cryptocurrencies", cryptoService.getCrypto(limit, offset));
+    public String crypto(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
+        model.addAttribute("currentPage", cryptoService.getPage(page));
+        model.addAttribute("pageCount", cryptoService.getPageCount());
         return "crypto";
     }
 

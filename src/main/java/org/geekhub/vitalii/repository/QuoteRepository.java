@@ -1,6 +1,6 @@
 package org.geekhub.vitalii.repository;
 
-import org.geekhub.vitalii.dto.AddStockDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ public class QuoteRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void addStock(String username ,AddStockDTO stock) {
+    public void addStock(String username , UserStockDTO stock) {
         String sql = "INSERT INTO customer_" + stock.getType() + " (customer_id, cryptocurrency_symbol, amount) " +
             "VALUES " +
             "((SELECT id " +

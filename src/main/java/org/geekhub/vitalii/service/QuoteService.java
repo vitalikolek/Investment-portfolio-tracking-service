@@ -1,6 +1,6 @@
 package org.geekhub.vitalii.service;
 
-import org.geekhub.vitalii.dto.AddStockDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.dto.ChartPointDTO;
 import org.geekhub.vitalii.dto.StockDTO;
 import org.geekhub.vitalii.repository.QuoteRepository;
@@ -48,7 +48,7 @@ public class QuoteService {
         return chartData;
     }
 
-    public void addStock(String username, AddStockDTO stock) {
+    public void addStock(String username, UserStockDTO stock) {
         quoteRepository.addStock(username, stock);
     }
 }

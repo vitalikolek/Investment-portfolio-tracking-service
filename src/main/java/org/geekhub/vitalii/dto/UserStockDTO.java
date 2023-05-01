@@ -2,13 +2,13 @@ package org.geekhub.vitalii.dto;
 
 import java.math.BigDecimal;
 
-public class AddStockDTO {
+public class UserStockDTO {
 
     private String symbol;
     private String type;
     private BigDecimal amount;
 
-    public AddStockDTO() {
+    public UserStockDTO() {
     }
 
     public String getSymbol() {

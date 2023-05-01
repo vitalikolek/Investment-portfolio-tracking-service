@@ -1,7 +1,6 @@
 package org.geekhub.vitalii.repository;
 
-import org.geekhub.vitalii.dto.StockDTO;
-import org.geekhub.vitalii.dto.UserStocksDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class PortfolioRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<UserStocksDTO> getCustomerStocks(String username) {
+    public List<UserStockDTO> getCustomerStocks(String username) {
         String sql = "SELECT c.username, cc.cryptocurrency_symbol AS symbol, cc.amount AS amount, 'cryptocurrency' AS type " +
             "FROM customer_cryptocurrency AS cc " +
             "JOIN customer AS c ON cc.customer_id = c.id " +
@@ -35,7 +34,7 @@ public class PortfolioRepository {
             "WHERE c.username = '" + username + "';";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            UserStocksDTO userStocksDTO = new UserStocksDTO();
+            UserStockDTO userStocksDTO = new UserStockDTO();
             userStocksDTO.setSymbol(rs.getString("symbol"));
             userStocksDTO.setAmount(rs.getBigDecimal("amount"));
             userStocksDTO.setType(rs.getString("type"));

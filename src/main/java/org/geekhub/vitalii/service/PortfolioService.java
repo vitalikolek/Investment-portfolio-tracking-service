@@ -1,7 +1,7 @@
 package org.geekhub.vitalii.service;
 
 import org.geekhub.vitalii.dto.StockDTO;
-import org.geekhub.vitalii.dto.UserStocksDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,10 @@ public class PortfolioService {
     }
 
     public List<StockDTO> getCustomerStocks(String username) {
-        List<UserStocksDTO> symbolAndPrice = portfolioRepository.getCustomerStocks(username);
+        List<UserStockDTO> symbolAndPrice = portfolioRepository.getCustomerStocks(username);
 
         List<StockDTO> stockDTOS = new ArrayList<>();
-        for (UserStocksDTO userStocksDTO : symbolAndPrice) {
+        for (UserStockDTO userStocksDTO : symbolAndPrice) {
             Stock stock = StockHelper.makeStockFromSymbol(userStocksDTO.getSymbol());
             stockDTOS.add(new StockDTO(stock.getSymbol(), stock.getName(), userStocksDTO.getType(),
                 stock.getQuote().getPrice(), stock.getQuote().getChangeInPercent(), userStocksDTO.getAmount(),

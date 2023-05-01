@@ -24,4 +24,10 @@ public class CryptoRepository {
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
     }
+
+    public int cryptocurrenciesCount() {
+        String sql = "SELECT COUNT(id) FROM cryptocurrency;";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count == null ? 0 : count;
+    }
 }

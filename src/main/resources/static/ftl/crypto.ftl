@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>Comments</title>
+    <title>Crypto</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
@@ -41,7 +41,7 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Today's Cryptocurrency Prices</h2>
     <div id="data" class="table-responsive">
-        <table id="stocks-table" class="table table-hover">
+        <table id="crypto-table" class="table table-hover">
             <thead>
             <tr>
                 <th scope="col" class="stockSymbolCol">Symbol</th>
@@ -54,22 +54,56 @@
             </tr>
             </thead>
             <tbody>
-                <#list cryptocurrencies as crypto>
-                    <tr>
-                        <th class="stockSymbolCol"><a href="/quote/${crypto.symbol}?stock=cryptocurrency">${crypto.symbol}</th>
-                        <td class="stockNameCol">${crypto.name}</td>
-                        <td class="stockPriceCol">${crypto.price}</td>
-                        <td class="stockChangeCol">${crypto.change}</td>
-                        <td class="stockChangeInPercentCol">${crypto.changeInPercent}</td>
-                        <td class="stockMarketCapCol">${crypto.marketCap}</td>
-                        <td class="stockVolumeCol">${crypto.volume}</td>
-                    </tr>
-                </#list>
             </tbody>
         </table>
     </div>
 </div>
 
+<div class="mx-auto">
+
+    <#assign first = 1>
+    <#assign prev = currentPage - 1>
+    <#assign next = currentPage + 1>
+    <#assign last = pageCount>
+
+    <ul class="pagination justify-content-center">
+        <#if (currentPage > 2)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=1">First</a>
+            </li>
+        </#if>
+        <#if (currentPage > 1)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=${prev}">Previous</a>
+            </li>
+        </#if>
+        <#if (currentPage > 1)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${prev}">${prev}</a>
+            </li>
+        </#if>
+        <li class="page-item active">
+            <a class="page-link"> <span class="sr-only">${currentPage}</span></a>
+        </li>
+        <#if (next <= last)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${next}">${next}</a>
+            </li>
+        </#if>
+        <#if (next <= last)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${next}">Next</a>
+            </li>
+        </#if>
+        <#if (currentPage + 2 < last)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=${last}">Last</a>
+            </li>
+        </#if>
+    </ul>
+</div>
+
 <script src="../js/jquery-3.6.4.min.js"></script>
 <script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/crypto.js"></script>
 </body>

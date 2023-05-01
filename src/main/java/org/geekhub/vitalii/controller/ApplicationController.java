@@ -52,9 +52,9 @@ public class ApplicationController {
     }
 
     @GetMapping("/share")
-    public String share(Model model, @RequestParam(name = "limit", defaultValue = "10") Integer limit,
-                            @RequestParam(name = "offset", defaultValue = "0") Integer offset) {
-        model.addAttribute("shares", shareService.getShares(limit, offset));
+    public String share(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageCount", shareService.getPageCount());
         return "share";
     }
 

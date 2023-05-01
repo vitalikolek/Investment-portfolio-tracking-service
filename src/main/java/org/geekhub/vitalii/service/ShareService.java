@@ -13,14 +13,20 @@ import java.util.Map;
 public class ShareService {
 
     private final ShareRepository shareRepository;
+    private final int pageSize = 25;
 
     @Autowired
     public ShareService(ShareRepository shareRepository) {
         this.shareRepository = shareRepository;
     }
 
-    public List<StockDTO> getShares(Integer limit, Integer offset) {
-        List<String> cryptoSymbols = shareRepository.getShareSymbols(limit, offset);
+    public int getPageCount() {
+        return (int) Math.ceil((double) shareRepository.sharesCount() / pageSize);
+    }
+
+    public List<StockDTO> getShares(Integer page) {
+        int offset = (page - 1) * pageSize;
+        List<String> cryptoSymbols = shareRepository.getShareSymbols(pageSize, offset);
         Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(cryptoSymbols);
         return StockHelper.makeStockDTOSFromStocks(stockMap);
     }

@@ -39,9 +39,9 @@
     </div>
 </header>
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Today's Cryptocurrency Prices</h2>
+    <h2 class="text-center mb-4">Today's Share Prices</h2>
     <div id="data" class="table-responsive">
-        <table id="stocks-table" class="table table-hover">
+        <table id="share-table" class="table table-hover">
             <thead>
             <tr>
                 <th scope="col" class="stockSymbolCol">Symbol</th>
@@ -54,22 +54,56 @@
             </tr>
             </thead>
             <tbody>
-            <#list shares as share>
-                <tr>
-                    <th class="stockSymbolCol"><a href="/quote/${share.symbol}">${share.symbol}</th>
-                    <td class="stockNameCol">${share.name}</td>
-                    <td class="stockPriceCol">${share.price}</td>
-                    <td class="stockChangeCol">${share.change}</td>
-                    <td class="stockChangeInPercentCol">${share.changeInPercent}</td>
-                    <td class="stockMarketCapCol">${share.marketCap}</td>
-                    <td class="stockVolumeCol">${share.volume}</td>
-                </tr>
-            </#list>
             </tbody>
         </table>
     </div>
 </div>
 
+<div class="mx-auto">
+
+    <#assign first = 1>
+    <#assign prev = currentPage - 1>
+    <#assign next = currentPage + 1>
+    <#assign last = pageCount>
+
+    <ul class="pagination justify-content-center">
+        <#if (currentPage > 2)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=1">First</a>
+            </li>
+        </#if>
+        <#if (currentPage > 1)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=${prev}">Previous</a>
+            </li>
+        </#if>
+        <#if (currentPage > 1)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${prev}">${prev}</a>
+            </li>
+        </#if>
+        <li class="page-item active">
+            <a class="page-link"> <span class="sr-only">${currentPage}</span></a>
+        </li>
+        <#if (next <= last)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${next}">${next}</a>
+            </li>
+        </#if>
+        <#if (next <= last)>
+            <li class="page-item">
+                <a class="page-link" href="?page=${next}">Next</a>
+            </li>
+        </#if>
+        <#if (currentPage + 2 < last)>
+            <li class="page-item">
+                <a class="prev-link page-link" href="?page=${last}">Last</a>
+            </li>
+        </#if>
+    </ul>
+</div>
+
 <script src="../js/jquery-3.6.4.min.js"></script>
 <script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/share.js"></script>
 </body>

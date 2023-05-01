@@ -39,7 +39,7 @@
     </div>
 </header>
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Today's Cryptocurrency Prices</h2>
+    <h2 class="text-center mb-4">Today's Currency Prices</h2>
     <div id="data" class="table-responsive">
         <table id="currencies-table" class="table table-hover">
             <thead>

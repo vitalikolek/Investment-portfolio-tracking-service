@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>Comments</title>
+    <title>Login</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>

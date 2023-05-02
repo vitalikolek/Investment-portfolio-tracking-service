@@ -57,9 +57,4 @@ public class ApplicationController {
         model.addAttribute("pageCount", shareService.getPageCount());
         return "share";
     }
-
-    @GetMapping("/registration")
-    public String registration() {
-        return "registration";
-    }
 }

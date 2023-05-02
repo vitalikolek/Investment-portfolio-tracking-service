@@ -1,28 +1,29 @@
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Register</title>
+
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
+
 <body>
 <div class="container">
-    <form id="register">
+    <form action="/registration" method="post">
         <h1 class="mb-3">Registration</h1>
         <div class="mb-3">
-            <label class="form-label">Username:</label>
+            <label class="form-label" for="username">Username:</label>
             <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Email:</label>
+            <label class="form-label" for="email">Email:</label>
             <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Password:</label>
+            <label class="form-label" for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Role:</label>
+            <label class="form-label" for="role">Role:</label>
             <select id="role" class="form-select" name="role">
                 <option value="ROLE_USER" selected>User</option>
                 <option value="ROLE_COMPANY">Company</option>

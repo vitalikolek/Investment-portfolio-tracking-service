@@ -1,5 +1,6 @@
 package org.geekhub.vitalii.repository;
 
+import org.geekhub.vitalii.dto.StockDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,11 +17,29 @@ public class ShareRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<String> getShareSymbols(int limit, int offset) {
-        String sql = "SELECT share.symbol " +
+    public List<StockDTO> getShareInfo(int limit, int offset) {
+        String sql = "SELECT * " +
                 "FROM share " +
-                "ORDER BY symbol " +
+                "ORDER BY marketcap DESC " +
                 "LIMIT " + limit + " OFFSET " + offset + ";";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            StockDTO stockDTO = new StockDTO();
+            stockDTO.setSymbol(rs.getString( "symbol"));
+            stockDTO.setName(rs.getString("name"));
+            stockDTO.setPrice(rs.getBigDecimal("price"));
+            stockDTO.setDayHigh(rs.getBigDecimal("dayHigh"));
+            stockDTO.setDayLow(rs.getBigDecimal("dayLow"));
+            stockDTO.setChange(rs.getBigDecimal("change"));
+            stockDTO.setChangeInPercent(rs.getBigDecimal("changeInPercent"));
+            stockDTO.setMarketCap(rs.getBigDecimal("marketCap"));
+            stockDTO.setVolume(rs.getLong("volume"));
+            return stockDTO;
+        });
+    }
+
+    public List<String> getAllShareSymbols() {
+        String sql = "SELECT share.symbol FROM share;";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
     }

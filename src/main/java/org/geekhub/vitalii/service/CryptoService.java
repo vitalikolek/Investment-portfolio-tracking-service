@@ -4,10 +4,8 @@ import org.geekhub.vitalii.dto.StockDTO;
 import org.geekhub.vitalii.repository.CryptoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yahoofinance.Stock;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class CryptoService {
@@ -26,8 +24,6 @@ public class CryptoService {
 
     public List<StockDTO> getCrypto(Integer page) {
         int offset = (page - 1) * pageSize;
-        List<String> cryptoSymbols = cryptoRepository.getCryptoSymbols(pageSize, offset);
-        Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(cryptoSymbols);
-        return StockHelper.makeStockDTOSFromStocks(stockMap);
+        return cryptoRepository.getCryptoInfo(pageSize, offset);
     }
 }

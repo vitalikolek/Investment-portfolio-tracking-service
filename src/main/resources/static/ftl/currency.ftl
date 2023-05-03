@@ -57,7 +57,7 @@
                     <th class="stockSymbolCol"><a href="/quote/${currency.symbol}?stock=currency">${currency.symbol}</th>
                     <td class="stockNameCol">${currency.name}</td>
                     <td class="stockPriceCol">${currency.price}</td>
-                    <td class="stockChangeCol">${currency.change}</td>
+                    <td class="stockChangeCol">${currency.changeInPercent}</td>
                     <td class="stockChangeInPercentCol">${currency.changeInPercent}</td>
                 </tr>
             </#list>

@@ -1,13 +1,10 @@
 package org.geekhub.vitalii.service;
 
-import org.geekhub.vitalii.dto.StockDTO;
-import org.geekhub.vitalii.dto.UserStockDTO;
+import org.geekhub.vitalii.dto.StockInPortfolioDTO;
 import org.geekhub.vitalii.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yahoofinance.Stock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,17 +17,13 @@ public class PortfolioService {
         this.portfolioRepository = portfolioRepository;
     }
 
-    public List<StockDTO> getCustomerStocks(String username) {
-        List<UserStockDTO> symbolAndPrice = portfolioRepository.getCustomerStocks(username);
+    public List<StockInPortfolioDTO> getCustomerStocks(String username) {
+        List<StockInPortfolioDTO> stocksInPortfolio = portfolioRepository.getCustomerStocks(username);
 
-        List<StockDTO> stockDTOS = new ArrayList<>();
-        for (UserStockDTO userStocksDTO : symbolAndPrice) {
-            Stock stock = StockHelper.makeStockFromSymbol(userStocksDTO.getSymbol());
-            stockDTOS.add(new StockDTO(stock.getSymbol(), stock.getName(), userStocksDTO.getType(),
-                stock.getQuote().getPrice(), stock.getQuote().getChangeInPercent(), userStocksDTO.getAmount(),
-                userStocksDTO.getAmount().multiply(stock.getQuote().getPrice())));
+        for (StockInPortfolioDTO stock : stocksInPortfolio) {
+            stock.setValue(stock.getAmount().multiply(stock.getPrice()));
         }
 
-        return stockDTOS;
+        return stocksInPortfolio;
     }
 }

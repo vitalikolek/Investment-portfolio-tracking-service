@@ -43,7 +43,7 @@ Name: ${stockInfo.name}
 Price: ${stockInfo.price}
 Day High: ${stockInfo.dayHigh}
 Day Low: ${stockInfo.dayLow}
-Change: ${stockInfo.change}
+Change: ${stockInfo.changeInPercent}
 Change in Percent: ${stockInfo.changeInPercent}
 <#if stockInfo.marketCap??>
     Market Cap: ${stockInfo.marketCap}

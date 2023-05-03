@@ -59,7 +59,7 @@
                         <td class="stockNameCol">${stock.name}</td>
                         <td class="stockPriceCol">${stock.price}</td>
                         <td class="stockChangeInPercentCol">${stock.changeInPercent}</td>
-                        <td class="stockMarketCapCol">${stock.balance}</td>
+                        <td class="stockMarketCapCol">${stock.amount}</td>
                         <td class="stockVolumeCol">${stock.value}</td>
                     </tr>
                 </#list>

@@ -16,12 +16,13 @@ public class QuoteRepository {
     }
 
     public void addStock(String username , UserStockDTO stock) {
-        String sql = "INSERT INTO customer_" + stock.getType() + " (customer_id, cryptocurrency_symbol, amount) " +
+        String sql =
+            "INSERT INTO customer_" + stock.getType() + " (customer_id, " + stock.getType() + "_symbol, amount) " +
             "VALUES " +
-            "((SELECT id " +
-            "FROM customer " +
-            "WHERE username = '" + username + "'), '" + stock.getSymbol() + "', " + stock.getAmount() + ")" +
-            "ON CONFLICT (customer_id, cryptocurrency_symbol) " +
+                "((SELECT id " +
+                "FROM customer " +
+                "WHERE username = '" + username + "'), '" + stock.getSymbol() + "', " + stock.getAmount() + ")" +
+            "ON CONFLICT (customer_id, " + stock.getType() + "_symbol) " +
             "DO UPDATE SET amount = " + stock.getAmount() + ";";
 
         jdbcTemplate.update(sql);

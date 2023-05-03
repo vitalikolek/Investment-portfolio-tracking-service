@@ -4,16 +4,11 @@ public class ExcelCustomerStockDTO {
 
     private String symbol;
     private String name;
-    private String type;
     private double amount;
+    private double price;
     private double value;
 
-    public ExcelCustomerStockDTO(String symbol, String name, String type, double amount, double value) {
-        this.symbol = symbol;
-        this.name = name;
-        this.type = type;
-        this.amount = amount;
-        this.value = value;
+    public ExcelCustomerStockDTO() {
     }
 
     public String getSymbol() {
@@ -24,12 +19,13 @@ public class ExcelCustomerStockDTO {
         return name;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public double getAmount() {
         return amount;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public double getValue() {
@@ -44,12 +40,13 @@ public class ExcelCustomerStockDTO {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public void setValue(double value) {

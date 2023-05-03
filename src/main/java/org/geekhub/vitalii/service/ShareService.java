@@ -4,10 +4,8 @@ import org.geekhub.vitalii.dto.StockDTO;
 import org.geekhub.vitalii.repository.ShareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yahoofinance.Stock;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ShareService {
@@ -26,8 +24,6 @@ public class ShareService {
 
     public List<StockDTO> getShares(Integer page) {
         int offset = (page - 1) * pageSize;
-        List<String> cryptoSymbols = shareRepository.getShareSymbols(pageSize, offset);
-        Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(cryptoSymbols);
-        return StockHelper.makeStockDTOSFromStocks(stockMap);
+        return shareRepository.getShareInfo(pageSize, offset);
     }
 }

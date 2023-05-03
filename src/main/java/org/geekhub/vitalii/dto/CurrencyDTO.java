@@ -2,7 +2,7 @@ package org.geekhub.vitalii.dto;
 
 import java.math.BigDecimal;
 
-public class StockDTO {
+public class CurrencyDTO {
 
     private String symbol;
     private String name;
@@ -11,22 +11,8 @@ public class StockDTO {
     private BigDecimal dayLow;
     private BigDecimal change;
     private BigDecimal changeInPercent;
-    private BigDecimal marketCap;
-    private Long volume;
 
-    public StockDTO() {
-    }
-
-    public StockDTO(String symbol, String name, BigDecimal price, BigDecimal dayHigh, BigDecimal dayLow, BigDecimal change, BigDecimal changeInPercent, BigDecimal marketCap, Long volume) {
-        this.symbol = symbol;
-        this.name = name;
-        this.price = price;
-        this.dayHigh = dayHigh;
-        this.dayLow = dayLow;
-        this.change = change;
-        this.changeInPercent = changeInPercent;
-        this.marketCap = marketCap;
-        this.volume = volume;
+    public CurrencyDTO() {
     }
 
     public String getSymbol() {
@@ -36,7 +22,6 @@ public class StockDTO {
     public String getName() {
         return name;
     }
-
 
     public BigDecimal getPrice() {
         return price;
@@ -58,14 +43,6 @@ public class StockDTO {
         return changeInPercent;
     }
 
-    public BigDecimal getMarketCap() {
-        return marketCap;
-    }
-
-    public Long getVolume() {
-        return volume;
-    }
-
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
@@ -73,7 +50,6 @@ public class StockDTO {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public void setPrice(BigDecimal price) {
         this.price = price;
@@ -93,13 +69,5 @@ public class StockDTO {
 
     public void setChangeInPercent(BigDecimal changeInPercent) {
         this.changeInPercent = changeInPercent;
-    }
-
-    public void setMarketCap(BigDecimal marketCap) {
-        this.marketCap = marketCap;
-    }
-
-    public void setVolume(Long volume) {
-        this.volume = volume;
     }
 }

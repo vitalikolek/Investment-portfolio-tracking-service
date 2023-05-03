@@ -15,13 +15,13 @@ public final class StockHelper {
     private StockHelper() {
     }
 
-    public static List<StockDTO> makeStockDTOSFromStocks(Map<String, Stock> stocks) {
+    public static List<StockDTO> getDataForScrape(Map<String, Stock> stocks) {
         List<StockDTO> stockDTOS = new ArrayList<>();
 
         for (Stock stock : stocks.values()) {
             stockDTOS.add(new StockDTO(stock.getSymbol(), stock.getName(), stock.getQuote().getPrice(),
-                    stock.getQuote().getChange(), stock.getQuote().getChangeInPercent(), stock.getStats().getMarketCap(),
-                    stock.getQuote().getVolume()));
+                stock.getQuote().getDayHigh(), stock.getQuote().getDayLow(), stock.getQuote().getChange(),
+                stock.getQuote().getChangeInPercent(), stock.getStats().getMarketCap(), stock.getQuote().getVolume()));
         }
 
         return stockDTOS;

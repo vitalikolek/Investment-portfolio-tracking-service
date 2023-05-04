@@ -31,7 +31,7 @@ public class DataScraper {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 300000)
     public void scrapeAndSaveAllData() {
         scrapeAndSave("cryptocurrency", cryptoRepository.getAllCryptoSymbols());
         scrapeAndSave("share", shareRepository.getAllShareSymbols());

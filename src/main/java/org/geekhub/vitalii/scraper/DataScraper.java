@@ -4,7 +4,7 @@ import org.geekhub.vitalii.dto.StockDTO;
 import org.geekhub.vitalii.repository.CryptoRepository;
 import org.geekhub.vitalii.repository.CurrencyRepository;
 import org.geekhub.vitalii.repository.ShareRepository;
-import org.geekhub.vitalii.service.StockHelper;
+import org.geekhub.vitalii.service.YahooFinanceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,21 +39,21 @@ public class DataScraper {
     }
 
     public void scrapeAndSave(String stock, List<String> symbols) {
-        Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(symbols);
-        List<StockDTO> scrapedData = StockHelper.getDataForScrape(stockMap);
+        Map<String, Stock> stockMap = YahooFinanceHelper.makeMapOfStocksFromListOfSymbols(symbols);
+        List<StockDTO> scrapedData = YahooFinanceHelper.getDataForScrape(stockMap);
         List<Object[]> dataToUpdate = new ArrayList<>();
         String sql = "UPDATE " + stock + " SET name=?, price=?, dayHigh=?, dayLow=?, change=?, changeInPercent=?, marketCap=?, volume=? WHERE symbol=?;";
         for (StockDTO data : scrapedData) {
             Object[] values = new Object[] {
-                    data.getName(),
-                    data.getPrice(),
-                    data.getDayHigh(),
-                    data.getDayLow(),
-                    data.getChange(),
-                    data.getChangeInPercent(),
-                    data.getMarketCap(),
-                    data.getVolume(),
-                    data.getSymbol()
+                data.getName(),
+                data.getPrice(),
+                data.getDayHigh(),
+                data.getDayLow(),
+                data.getChange(),
+                data.getChangeInPercent(),
+                data.getMarketCap(),
+                data.getVolume(),
+                data.getSymbol()
             };
             dataToUpdate.add(values);
         }
@@ -61,19 +61,19 @@ public class DataScraper {
     }
 
     public void scrapeAndSaveCurrency(List<String> symbols) {
-        Map<String, Stock> stockMap = StockHelper.makeMapOfStocksFromListOfSymbols(symbols);
-        List<StockDTO> scrapedData = StockHelper.getDataForScrape(stockMap);
+        Map<String, Stock> stockMap = YahooFinanceHelper.makeMapOfStocksFromListOfSymbols(symbols);
+        List<StockDTO> scrapedData = YahooFinanceHelper.getDataForScrape(stockMap);
         List<Object[]> dataToUpdate = new ArrayList<>();
         String sql = "UPDATE currency SET name=?, price=?, dayHigh=?, dayLow=?, change=?, changeInPercent=? WHERE symbol=?;";
         for (StockDTO data : scrapedData) {
             Object[] values = new Object[] {
-                    data.getName(),
-                    data.getPrice(),
-                    data.getDayHigh(),
-                    data.getDayLow(),
-                    data.getChange(),
-                    data.getChangeInPercent(),
-                    data.getSymbol()
+                data.getName(),
+                data.getPrice(),
+                data.getDayHigh(),
+                data.getDayLow(),
+                data.getChange(),
+                data.getChangeInPercent(),
+                data.getSymbol()
             };
             dataToUpdate.add(values);
         }

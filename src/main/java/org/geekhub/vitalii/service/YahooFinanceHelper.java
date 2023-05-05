@@ -6,13 +6,15 @@ import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class StockHelper {
+public final class YahooFinanceHelper {
 
-    private StockHelper() {
+    private YahooFinanceHelper() {
     }
 
     public static List<StockDTO> getDataForScrape(Map<String, Stock> stocks) {
@@ -28,6 +30,8 @@ public final class StockHelper {
     }
 
     public static Map<String, Stock> makeMapOfStocksFromListOfSymbols(List<String> symbols) {
+        editFinalStatic(getClassField("QUOTES_QUERY1V7_BASE_URL"),
+            "https://query1.finance.yahoo.com/v6/finance/quote");
         try {
             return YahooFinance.get(symbols.toArray(new String[symbols.size()]));
         } catch (IOException e) {
@@ -36,10 +40,34 @@ public final class StockHelper {
     }
 
     public static Stock makeStockFromSymbol(String symbol) {
+        editFinalStatic(getClassField("QUOTES_QUERY1V7_BASE_URL"),
+            "https://query1.finance.yahoo.com/v6/finance/quote");
         try {
             return YahooFinance.get(symbol);
         } catch (IOException e) {
             throw new YahooFinanceConnectionFail("Cannot connect to Yahoo finance", e);
+        }
+    }
+
+    private static void editFinalStatic(Field field, Object newValue) {
+        field.setAccessible(true);
+
+        try {
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            field.set(null, newValue);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Field getClassField(String fieldName) {
+        Class<YahooFinance> clazz = YahooFinance.class;
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
         }
     }
 }

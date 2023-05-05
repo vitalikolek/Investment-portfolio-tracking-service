@@ -27,7 +27,7 @@ public class QuoteService {
     }
 
     public StockDTO getStockInfo(String symbol) {
-        Stock stock = StockHelper.makeStockFromSymbol(symbol);
+        Stock stock = YahooFinanceHelper.makeStockFromSymbol(symbol);
         return new StockDTO(stock.getSymbol(), stock.getName(), stock.getQuote().getPrice(),
                 stock.getQuote().getDayHigh(), stock.getQuote().getDayLow(), stock.getQuote().getChange(),
                 stock.getQuote().getChangeInPercent(), stock.getStats().getMarketCap(), stock.getQuote().getVolume());

@@ -50,4 +50,11 @@ public class PortfolioRepository {
             return stockInPortfolio;
         });
     }
+
+    public void deleteStock(String username, String type,String symbol) {
+        String sql = "DELETE FROM customer_" + type + " " +
+                "WHERE " + type + "_symbol = '" + symbol + "' " +
+                "AND customer_id IN (SELECT id FROM customer WHERE username = '" + username + "');";
+        jdbcTemplate.update(sql);
+    }
 }

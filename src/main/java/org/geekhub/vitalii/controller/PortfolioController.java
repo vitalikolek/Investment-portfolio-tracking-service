@@ -24,4 +24,10 @@ public class PortfolioController {
         model.addAttribute("customerStocks", portfolioService.getCustomerStocks(principal.getName()));
         return "portfolio";
     }
+
+    @PostMapping("/delete/{type}/{symbol}")
+    public String delete(Principal principal, @PathVariable("symbol") String symbol, @PathVariable("type") String type) {
+        portfolioService.deleteStock(principal.getName(), type, symbol);
+        return "redirect:/portfolio";
+    }
 }

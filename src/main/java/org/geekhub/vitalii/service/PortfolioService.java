@@ -26,4 +26,8 @@ public class PortfolioService {
 
         return stocksInPortfolio;
     }
+
+    public void deleteStock(String username, String type, String symbol) {
+        portfolioRepository.deleteStock(username, type, symbol);
+    }
 }

@@ -50,6 +50,7 @@
                 <th scope="col" class="stockChangeInPercentCol">% Change</th>
                 <th scope="col" class="stockBalanceCol">Balance</th>
                 <th scope="col" class="stockValueCol">Value</th>
+                <th scope="col" class="deleteStockCol">Value</th>
             </tr>
             </thead>
             <tbody>
@@ -61,6 +62,11 @@
                         <td class="stockChangeInPercentCol">${stock.changeInPercent}</td>
                         <td class="stockMarketCapCol">${stock.amount}</td>
                         <td class="stockVolumeCol">${stock.value}</td>
+                        <td class="deleteStockCol">
+                            <form method="post" action="/delete/${stock.type}/${stock.symbol}">
+                                <button type="submit" class="btn btn-warning btn-sm text-white">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 </#list>
             </tbody>

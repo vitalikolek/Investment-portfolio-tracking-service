@@ -3,7 +3,7 @@ function getCrypto() {
     let page = GetURLParameter('page');
 
     $.ajax({
-        url: '/getShare/',
+        url: '/share/getShare/',
         method: 'GET',
         data: { page: page},
         success: function (cryptos) {

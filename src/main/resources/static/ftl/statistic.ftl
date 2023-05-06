@@ -41,8 +41,10 @@
         </div>
     </div>
 </header>
-<a href="/statistic/excel">Export to Excel</a>
-<a href="/statistic/word">Export to Word</a>
-<a href="/statistic/pdf">Export to PDF</a>
+<div class="container">
+    <a class="btn btn-primary btn-block" href="/statistic/excel">Export to Excel</a>
+    <a class="btn btn-primary btn-block" href="/statistic/word">Export to Word</a>
+    <a class="btn btn-primary btn-block" href="/statistic/pdf">Export to PDF</a>
+</div>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <title>Share</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/autocomplete.css">
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,6 +44,16 @@
 </header>
 <div class="container mt-5">
     <h2 class="text-center mb-4">Today's Share Prices</h2>
+
+    <form>
+        <div class="input-group mb-3">
+            <input type="search" class="form-control" placeholder="symbol" id="symbol" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+
     <div id="data" class="table-responsive">
         <table id="share-table" class="table table-hover">
             <thead>
@@ -107,6 +118,7 @@
 </div>
 
 <script src="../js/jquery-3.6.4.min.js"></script>
+<script src="../js/jquery-ui.min.js"></script>
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/share.js"></script>
 </body>

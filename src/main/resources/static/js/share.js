@@ -38,5 +38,28 @@ function GetURLParameter(sParam) {
 }
 
 $(function() {
+    $("#symbol").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url : "/share/getShareSymbols",
+                dataType : "json",
+                success: function(data){
+                    let results = $.ui.autocomplete.filter(data, request.term);
+                    response(results.slice(0, 5));
+                }
+            });
+        }
+    });
+});
+
+$('form').submit(function(e) {
+    e.preventDefault();
+    let symbol = $('#symbol').val();
+    let link = `/quote/${symbol}?stock=share`;
+    $('#link').attr('href', link).text(link);
+    window.location.href = link;
+});
+
+$(function() {
     getCrypto();
 });

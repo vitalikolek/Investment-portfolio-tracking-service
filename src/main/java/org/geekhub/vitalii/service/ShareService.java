@@ -26,4 +26,8 @@ public class ShareService {
         int offset = (page - 1) * pageSize;
         return shareRepository.getShareInfo(pageSize, offset);
     }
+
+    public List<String> getShareSymbols() {
+        return shareRepository.getAllShareSymbols();
+    }
 }

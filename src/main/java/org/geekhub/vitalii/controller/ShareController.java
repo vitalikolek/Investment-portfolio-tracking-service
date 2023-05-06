@@ -35,4 +35,10 @@ public class ShareController {
     public List<StockDTO> getCrypto(@RequestParam(name = "page", defaultValue = "1") int page) {
         return shareService.getShares(page);
     }
+
+    @GetMapping("/getShareSymbols")
+    @ResponseBody
+    public List<String> getCrypto() {
+        return shareService.getShareSymbols();
+    }
 }

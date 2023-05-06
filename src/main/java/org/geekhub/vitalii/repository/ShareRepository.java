@@ -40,7 +40,6 @@ public class ShareRepository {
 
     public List<String> getAllShareSymbols() {
         String sql = "SELECT share.symbol FROM share;";
-
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
     }
 

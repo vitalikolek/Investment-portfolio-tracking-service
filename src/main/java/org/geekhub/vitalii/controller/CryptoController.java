@@ -35,4 +35,10 @@ public class CryptoController {
     public List<StockDTO> getCrypto(@RequestParam(name = "page", defaultValue = "1") int page) {
         return cryptoService.getCrypto(page);
     }
+
+    @GetMapping("/getCryptoSymbols")
+    @ResponseBody
+    public List<String> getCrypto() {
+        return cryptoService.getCryptoSymbols();
+    }
 }

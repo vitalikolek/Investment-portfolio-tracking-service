@@ -26,4 +26,8 @@ public class CryptoService {
         int offset = (page - 1) * pageSize;
         return cryptoRepository.getCryptoInfo(pageSize, offset);
     }
+
+    public List<String> getCryptoSymbols() {
+        return cryptoRepository.getAllCryptoSymbols();
+    }
 }

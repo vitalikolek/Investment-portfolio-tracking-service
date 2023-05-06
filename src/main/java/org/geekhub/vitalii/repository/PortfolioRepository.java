@@ -1,6 +1,7 @@
 package org.geekhub.vitalii.repository;
 
 import org.geekhub.vitalii.dto.StockInPortfolioDTO;
+import org.geekhub.vitalii.model.CustomerRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -51,10 +52,19 @@ public class PortfolioRepository {
         });
     }
 
-    public void deleteStock(String username, String type,String symbol) {
-        String sql = "DELETE FROM customer_" + type + " " +
-                "WHERE " + type + "_symbol = '" + symbol + "' " +
-                "AND customer_id IN (SELECT id FROM customer WHERE username = '" + username + "');";
+    public CustomerRole getCustomerRole(String username) {
+        String sql =
+            "SELECT customer.role " +
+            "FROM customer " +
+            "WHERE username = '" + username + "';";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> CustomerRole.valueOf(rs.getString("role")));
+    }
+
+    public void deleteStock(String username, String type, String symbol) {
+        String sql =
+            "DELETE FROM customer_" + type + " " +
+            "WHERE " + type + "_symbol = '" + symbol + "' " +
+            "AND customer_id IN (SELECT id FROM customer WHERE username = '" + username + "');";
         jdbcTemplate.update(sql);
     }
 }

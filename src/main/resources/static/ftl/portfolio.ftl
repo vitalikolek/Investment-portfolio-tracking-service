@@ -30,6 +30,9 @@
                     <a href="/currency" class="nav-link">Currency</a>
                 </li>
                 <li class="nav-item">
+                    <a href="/search" class="nav-link">Search</a>
+                </li>
+                <li class="nav-item">
                     <form action="/logout" method="post">
                         <input type="submit" value="Log out" class="btn btn-primary">
                     </form>
@@ -39,7 +42,11 @@
     </div>
 </header>
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Your portfolio</h2>
+    <#if username??>
+        <h2 class="text-center mb-4">${username} portfolio</h2>
+    <#else>
+        <h2 class="text-center mb-4">Your portfolio</h2>
+    </#if>
     <div id="data" class="table-responsive">
         <table id="portfolio-table" class="table table-hover">
             <thead>
@@ -50,7 +57,9 @@
                 <th scope="col" class="stockChangeInPercentCol">% Change</th>
                 <th scope="col" class="stockBalanceCol">Balance</th>
                 <th scope="col" class="stockValueCol">Value</th>
-                <th scope="col" class="deleteStockCol">Value</th>
+                <#if !username??>
+                    <th scope="col" class="deleteStockCol">Delete</th>
+                </#if>
             </tr>
             </thead>
             <tbody>
@@ -62,11 +71,13 @@
                         <td class="stockChangeInPercentCol">${stock.changeInPercent}</td>
                         <td class="stockMarketCapCol">${stock.amount}</td>
                         <td class="stockVolumeCol">${stock.value}</td>
-                        <td class="deleteStockCol">
-                            <form method="post" action="/delete/${stock.type}/${stock.symbol}">
-                                <button type="submit" class="btn btn-warning btn-sm text-white">Delete</button>
-                            </form>
-                        </td>
+                        <#if !username??>
+                            <td class="deleteStockCol">
+                                <form method="post" action="/delete/${stock.type}/${stock.symbol}">
+                                    <button type="submit" class="btn btn-warning btn-sm text-white">Delete</button>
+                                </form>
+                            </td>
+                        </#if>
                     </tr>
                 </#list>
             </tbody>

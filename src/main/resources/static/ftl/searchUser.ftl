@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
-    <title>${stockInfo.name}</title>
+    <meta charset="UTF-8">
+    <title>Search user</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/quote.css">
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,32 +41,41 @@
         </div>
     </div>
 </header>
-Symbol: ${stockInfo.symbol}
-Name: ${stockInfo.name}
-Price: ${stockInfo.price}
-Day High: ${stockInfo.dayHigh}
-Day Low: ${stockInfo.dayLow}
-Change: ${stockInfo.changeInPercent}
-Change in Percent: ${stockInfo.changeInPercent}
-<#if stockInfo.marketCap??>
-    Market Cap: ${stockInfo.marketCap}
-<#else>
-    Market Cap: N/A
-</#if>
-Volume: ${stockInfo.volume}
 
-<canvas id="stock-chart"></canvas>
+<div class="container">
+    <h1 class="text-center mb-3">Search user by username</h1>
+    <form method="get" action="/search">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="username" name="username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
 
-<form id="addStockForm">
-    <label>Amount:
-        <input id="amount" class="form-control" type="number" min="0" step=any name="amount" required>
-    </label>
+    <h1 class="text-center mt-5">Result</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Crypto</th>
+            <th>Currency</th>
+            <th>Share</th>
+        </tr>
+        </thead>
+        <tbody>
+            <#list users as user>
+                <tr>
+                    <th><a href="/portfolio/${user.username}">${user.username}</a></th>
+                    <td>${user.crypto}</td>
+                    <td>${user.currency}</td>
+                    <td>${user.share}</td>
+                </tr>
+            </#list>
+        </tbody>
+    </table>
+</div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<script src="../js/jquery-3.6.4.min.js"></script>
-<script src="../js/chart.js"></script>
-<script src="../js/quote.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

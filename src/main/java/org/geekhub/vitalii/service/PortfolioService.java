@@ -1,6 +1,7 @@
 package org.geekhub.vitalii.service;
 
 import org.geekhub.vitalii.dto.StockInPortfolioDTO;
+import org.geekhub.vitalii.model.CustomerRole;
 import org.geekhub.vitalii.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class PortfolioService {
         }
 
         return stocksInPortfolio;
+    }
+
+    public CustomerRole getCustomerRole(String username) {
+        return portfolioRepository.getCustomerRole(username);
     }
 
     public void deleteStock(String username, String type, String symbol) {

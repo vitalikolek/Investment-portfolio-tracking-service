@@ -30,6 +30,9 @@
                     <a href="/currency" class="nav-link">Currency</a>
                 </li>
                 <li class="nav-item">
+                    <a href="/search" class="nav-link">Search</a>
+                </li>
+                <li class="nav-item">
                     <form action="/logout" method="post">
                         <input type="submit" value="Log out" class="btn btn-primary">
                     </form>

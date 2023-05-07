@@ -17,6 +17,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+                <#if (role?? && role = "ROLE_COMPANY")>
+                    <li class="nav-item">
+                        <a href="/statistic" class="nav-link">Statistic</a>
+                    </li>
+                </#if>
                 <li class="nav-item">
                     <a href="/portfolio" class="nav-link">Portfolio</a>
                 </li>

@@ -23,6 +23,7 @@ public class PortfolioController {
     @GetMapping("/portfolio")
     public String portfolio(Model model, Principal principal) {
         model.addAttribute("customerStocks", portfolioService.getCustomerStocks(principal.getName()));
+        model.addAttribute("role", portfolioService.getCustomerRole(principal.getName()));
         return "portfolio";
     }
 

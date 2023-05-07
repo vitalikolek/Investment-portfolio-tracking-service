@@ -41,10 +41,21 @@
         </div>
     </div>
 </header>
+
 <div class="container">
-    <a class="btn btn-primary btn-block" href="/statistic/excel">Export to Excel</a>
-    <a class="btn btn-primary btn-block" href="/statistic/word">Export to Word</a>
-    <a class="btn btn-primary btn-block" href="/statistic/pdf">Export to PDF</a>
+    <div class="d-grid gap-2">
+        <form action="/statistic/excel" method="get">
+            <button type="submit" class="btn btn-primary w-100">Export portfolio to Excel</button>
+        </form>
+        <form action="/statistic/word" method="get">
+            <button type="submit" class="btn btn-primary w-100">Export stocks statistic to Word</button>
+        </form>
+        <form action="/statistic/pdf" method="get">
+            <button type="submit" class="btn btn-primary w-100">Export your statistic to PDF</button>
+        </form>
+    </div>
 </div>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,9 +25,10 @@ public class CryptoController {
     }
 
     @GetMapping
-    public String crypto(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page) {
+    public String crypto(Model model, @RequestParam(name = "page", defaultValue = "1") Integer page, Principal principal) {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageCount", cryptoService.getPageCount());
+        model.addAttribute("principal", principal);
         return "crypto";
     }
 

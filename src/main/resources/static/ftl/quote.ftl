@@ -41,29 +41,33 @@
         </div>
     </div>
 </header>
-Symbol: ${stockInfo.symbol}
-Name: ${stockInfo.name}
-Price: ${stockInfo.price}
-Day High: ${stockInfo.dayHigh}
-Day Low: ${stockInfo.dayLow}
-Change: ${stockInfo.changeInPercent}
-Change in Percent: ${stockInfo.changeInPercent}
-<#if stockInfo.marketCap??>
-    Market Cap: ${stockInfo.marketCap}
-<#else>
-    Market Cap: N/A
-</#if>
-Volume: ${stockInfo.volume}
 
-<canvas id="stock-chart"></canvas>
-
-<form id="addStockForm">
-    <label>Amount:
-        <input id="amount" class="form-control" type="number" min="0" step=any name="amount" required>
-    </label>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="container">
+    <h1>${stockInfo.symbol} Chart</h1>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <canvas id="stock-chart"></canvas>
+        </div>
+        <div class="col-6 col-md-4">
+            <h5><strong>Symbol:</strong> ${stockInfo.symbol}</h5>
+            <h5><strong>Name:</strong> ${stockInfo.name}</h5>
+            <h5><strong>Price:</strong> ${stockInfo.price}</h5>
+            <h5><strong>Day High:</strong> ${stockInfo.dayHigh}</h5>
+            <h5><strong>Day Low:</strong> ${stockInfo.dayLow}</h5>
+            <h5><strong>Change:</strong> ${stockInfo.changeInPercent}</h5>
+            <h5><strong>Change in Percent:</strong> ${stockInfo.changeInPercent}</h5>
+            <h5><strong>Market Cap:</strong> <#if stockInfo.marketCap??>${stockInfo.marketCap}<#else>N/A</#if></h5>
+            <h5><strong>Volume:</strong> <#if stockInfo.volume??>${stockInfo.volume}<#else>N/A</#if></h5>
+        </div>
+    </div>
+    <form id="addStockForm">
+        <div class="form-group mb-3">
+            <label for="amount">Add to the portfolio or change the amount</label>
+            <input id="amount" class="form-control" type="number" min="0" step=any name="amount" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
 <script src="../js/jquery-3.6.4.min.js"></script>
 <script src="../js/chart.js"></script>

@@ -19,23 +19,23 @@ public class ExcelRepository {
 
     public List<ExcelCustomerStockDTO> getCustomerStocks(String username) {
         String sql =
-            "SELECT cc.cryptocurrency_symbol AS symbol, s.name, cc.amount AS amount, s.price " +
+            "SELECT cc.cryptocurrency_symbol AS symbol, s.name, cc.amount, s.price " +
             "FROM customer_cryptocurrency AS cc " +
             "JOIN customer AS c ON cc.customer_id = c.id " +
             "JOIN cryptocurrency AS s on cc.cryptocurrency_symbol = s.symbol " +
-            "WHERE c.username = '" + username + "' " +
+            "WHERE c.username = '" + username + "'  AND amount * s.price > 10 " +
             "UNION ALL " +
-            "SELECT cs.share_symbol AS symbol, s.name, cs.amount AS amount, s.price " +
+            "SELECT cs.share_symbol AS symbol, s.name, cs.amount, s.price " +
             "FROM customer_share AS cs " +
             "JOIN customer AS c ON cs.customer_id = c.id " +
             "JOIN share s on cs.customer_id = s.id " +
-            "WHERE c.username = '" + username + "' " +
+            "WHERE c.username = '" + username + "'  AND amount * s.price > 10 " +
             "UNION ALL " +
-            "SELECT cs.currency_symbol AS symbol, s.name, cs.amount AS amount, s.price " +
+            "SELECT cs.currency_symbol AS symbol, s.name, cs.amount, s.price " +
             "FROM customer_currency AS cs " +
             "JOIN customer AS c ON cs.customer_id = c.id " +
             "JOIN currency s on s.id = cs.customer_id " +
-            "WHERE c.username = '" + username + "';";
+            "WHERE c.username = '" + username + "' AND amount * s.price > 10;";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             ExcelCustomerStockDTO customerStock = new ExcelCustomerStockDTO();

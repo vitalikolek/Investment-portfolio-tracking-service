@@ -52,7 +52,7 @@ $(function() {
     });
 });
 
-$('form').submit(function(e) {
+$('#search').submit(function(e) {
     e.preventDefault();
     let symbol = $('#symbol').val();
     let link = `/quote/${symbol}?stock=cryptocurrency`;

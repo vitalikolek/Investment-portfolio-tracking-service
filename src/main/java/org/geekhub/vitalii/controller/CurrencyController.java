@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
+
 @Controller
 public class CurrencyController {
 
@@ -17,8 +19,9 @@ public class CurrencyController {
     }
 
     @GetMapping("/currency")
-    public String currency(Model model) {
+    public String currency(Model model, Principal principal) {
         model.addAttribute("currencies", currencyService.getCurrency());
+        model.addAttribute("principal", principal);
         return "currency";
     }
 }

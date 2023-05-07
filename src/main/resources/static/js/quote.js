@@ -56,6 +56,11 @@ $(function() {
             data: JSON.stringify(stock),
             contentType: "application/json",
             success: function() {
+                $('#amount').val(0);
+                alert("Stock was added");
+            },
+            error: function() {
+                alert("Error adding stock");
             }
         });
     });

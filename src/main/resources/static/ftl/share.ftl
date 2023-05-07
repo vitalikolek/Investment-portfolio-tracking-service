@@ -33,11 +33,19 @@
                 <li class="nav-item">
                     <a href="/search" class="nav-link">Search</a>
                 </li>
-                <li class="nav-item">
-                    <form action="/logout" method="post">
-                        <input type="submit" value="Log out" class="btn btn-primary">
-                    </form>
-                </li>
+                <#if (principal??)>
+                    <li class="nav-item">
+                        <form action="/logout" method="post">
+                            <input type="submit" value="Log out" class="btn btn-primary">
+                        </form>
+                    </li>
+                <#else>
+                    <li class="nav-item">
+                        <form action="/login" method="post">
+                            <input type="submit" value="Log in" class="btn btn-primary">
+                        </form>
+                    </li>
+                </#if>
             </ul>
         </div>
     </div>
@@ -45,7 +53,7 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Today's Share Prices</h2>
 
-    <form>
+    <form id="search">
         <div class="input-group mb-3">
             <input type="search" class="form-control" placeholder="symbol" id="symbol" aria-describedby="basic-addon2">
             <div class="input-group-append">

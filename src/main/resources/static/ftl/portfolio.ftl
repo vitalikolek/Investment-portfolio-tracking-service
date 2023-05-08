@@ -51,6 +51,7 @@
         <h2 class="text-center mb-4">${username} portfolio</h2>
     <#else>
         <h2 class="text-center mb-4">Your portfolio</h2>
+        <h4>Sum of your stocks in Bitcoin: ${sumOfStocksInBitcoin}</h4>
     </#if>
     <div id="data" class="table-responsive">
         <table id="portfolio-table" class="table table-hover">

@@ -22,8 +22,10 @@ public class PortfolioController {
 
     @GetMapping("/portfolio")
     public String portfolio(Model model, Principal principal) {
-        model.addAttribute("customerStocks", portfolioService.getCustomerStocks(principal.getName()));
-        model.addAttribute("role", portfolioService.getCustomerRole(principal.getName()));
+        String username = principal.getName();
+        model.addAttribute("customerStocks", portfolioService.getCustomerStocks(username));
+        model.addAttribute("role", portfolioService.getCustomerRole(username));
+        model.addAttribute("sumOfStocksInBitcoin", portfolioService.getSumOfStocksInBitcoin(username));
         return "portfolio";
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -58,6 +59,14 @@ public class PortfolioRepository {
             "FROM customer " +
             "WHERE username = '" + username + "';";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> CustomerRole.valueOf(rs.getString("role")));
+    }
+    
+    public BigDecimal getBitcoinPrice() {
+        String sql = 
+            "SELECT price " +
+            "FROM cryptocurrency " +
+            "WHERE symbol = 'BTC-USD';";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getBigDecimal("price"));
     }
 
     public void deleteStock(String username, String type, String symbol) {

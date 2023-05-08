@@ -6,6 +6,8 @@ import org.geekhub.vitalii.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -26,6 +28,17 @@ public class PortfolioService {
         }
 
         return stocksInPortfolio;
+    }
+
+    public BigDecimal getSumOfStocksInBitcoin(String username) {
+        List<StockInPortfolioDTO> stocks = getCustomerStocks(username);
+
+        BigDecimal totalValue = BigDecimal.valueOf(0);
+        for (StockInPortfolioDTO stock : stocks) {
+            totalValue = totalValue.add(stock.getValue());
+        }
+
+        return totalValue.divide(portfolioRepository.getBitcoinPrice(), RoundingMode.HALF_DOWN);
     }
 
     public CustomerRole getCustomerRole(String username) {

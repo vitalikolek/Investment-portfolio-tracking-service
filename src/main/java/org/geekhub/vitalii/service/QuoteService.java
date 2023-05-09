@@ -1,8 +1,8 @@
 package org.geekhub.vitalii.service;
 
-import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.dto.ChartPointDTO;
 import org.geekhub.vitalii.dto.StockDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.repository.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -24,4 +24,8 @@ public class RegistrationService {
         customer.generateCreationTime();
         registrationRepository.save(customer);
     }
+
+    public boolean isCustomerExist(String username, String email) {
+        return registrationRepository.isCustomerExist(username, email);
+    }
 }

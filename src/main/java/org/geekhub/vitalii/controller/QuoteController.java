@@ -1,7 +1,7 @@
 package org.geekhub.vitalii.controller;
 
-import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.dto.ChartPointDTO;
+import org.geekhub.vitalii.dto.UserStockDTO;
 import org.geekhub.vitalii.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
 package org.geekhub.vitalii.service;
 
-import org.geekhub.vitalii.exception.YahooFinanceConnectionFail;
 import org.geekhub.vitalii.dto.StockDTO;
+import org.geekhub.vitalii.exception.YahooFinanceConnectionFail;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 

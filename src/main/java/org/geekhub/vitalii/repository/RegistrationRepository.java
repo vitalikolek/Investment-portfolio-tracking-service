@@ -20,4 +20,14 @@ public class RegistrationRepository {
         jdbcTemplate.update(insertUserSql, customer.getUsername(), customer.getPassword(),
             customer.getEmail(), customer.getRole().toString(), customer.getCreationTime());
     }
+
+    public boolean isCustomerExist(String username, String email) {
+        String sql =
+            "SELECT id " +
+            "FROM customer " +
+            "WHERE username = '" + username + "' OR email = '" + email + "'" +
+            "LIMIT 1;";
+        Integer foundId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return foundId != null;
+    }
 }

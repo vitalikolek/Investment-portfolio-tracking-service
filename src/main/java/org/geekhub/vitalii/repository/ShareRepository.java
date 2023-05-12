@@ -18,12 +18,16 @@ public class ShareRepository {
     }
 
     public List<StockDTO> getShareInfo(int limit, int offset) {
-        String sql = "SELECT * " +
-                "FROM share " +
-                "ORDER BY marketcap DESC " +
-                "LIMIT " + limit + " OFFSET " + offset + ";";
+        String sql =
+            "SELECT * " +
+            "FROM share " +
+            "ORDER BY marketcap DESC " +
+            "LIMIT ? OFFSET ?;";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        return jdbcTemplate.query(sql, ps -> {
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
+        },(rs, rowNum) -> {
             StockDTO stockDTO = new StockDTO();
             stockDTO.setSymbol(rs.getString( "symbol"));
             stockDTO.setName(rs.getString("name"));

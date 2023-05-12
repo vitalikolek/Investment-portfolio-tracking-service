@@ -16,18 +16,14 @@ public class RegistrationRepository {
     }
 
     public void save(Customer customer) {
-        String insertUserSql = "INSERT INTO customer (username, password, email, role, creation_time) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(insertUserSql, customer.getUsername(), customer.getPassword(),
+        String sql = "INSERT INTO customer (username, password, email, role, creation_time) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getUsername(), customer.getPassword(),
             customer.getEmail(), customer.getRole().toString(), customer.getCreationTime());
     }
 
     public boolean isCustomerExist(String username, String email) {
-        String sql =
-            "SELECT id " +
-            "FROM customer " +
-            "WHERE username = '" + username + "' OR email = '" + email + "'" +
-            "LIMIT 1;";
-        Integer foundId = jdbcTemplate.queryForObject(sql, Integer.class);
+        String sql = "SELECT id FROM customer WHERE username = ? OR email = ? LIMIT 1;";
+        Integer foundId = jdbcTemplate.queryForObject(sql, Integer.class, username, email);
         return foundId != null;
     }
 }

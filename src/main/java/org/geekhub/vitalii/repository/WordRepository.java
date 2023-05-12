@@ -18,7 +18,8 @@ public class WordRepository {
     }
 
     public List<StockStatsDTO> getStocksStats() {
-        String sql = "SELECT " +
+        String sql =
+            "SELECT " +
             "'Cryptocurrency' AS asset_type, " +
             "COUNT(*) AS asset_count, " +
             "AVG(changeInPercent) AS avg_change_percent, " +

@@ -22,26 +22,30 @@ public class PortfolioRepository {
     public List<StockInPortfolioDTO> getCustomerStocks(String username) {
         String sql =
             "SELECT cc.cryptocurrency_symbol AS symbol, s.name, cc.amount AS amount, s.price, s.changeinpercent, " +
-                "'cryptocurrency' AS type " +
+            "'cryptocurrency' AS type " +
             "FROM customer_cryptocurrency AS cc " +
             "JOIN customer AS c ON cc.customer_id = c.id " +
             "JOIN cryptocurrency AS s on cc.cryptocurrency_symbol = s.symbol " +
-            "WHERE c.username = '" + username + "' " +
+            "WHERE c.username = ? " +
             "UNION ALL " +
             "SELECT cs.share_symbol AS symbol, s.name, cs.amount AS amount, s.price, s.changeinpercent, 'share' AS type " +
             "FROM customer_share AS cs " +
             "JOIN customer AS c ON cs.customer_id = c.id " +
             "JOIN share s on cs.customer_id = s.id " +
-            "WHERE c.username = '" + username + "' " +
+            "WHERE c.username = ? " +
             "UNION ALL " +
             "SELECT cs.currency_symbol AS symbol, s.name, cs.amount AS amount, s.price, s.changeinpercent, " +
-                "'currency' AS type " +
+            "'currency' AS type " +
             "FROM customer_currency AS cs " +
             "JOIN customer AS c ON cs.customer_id = c.id " +
             "JOIN currency s on s.id = cs.customer_id " +
-            "WHERE c.username = '" + username + "';";
+            "WHERE c.username = ?;";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        return jdbcTemplate.query(sql, ps -> {
+            ps.setString(1, username);
+            ps.setString(2, username);
+            ps.setString(3, username);
+        }, (rs, rowNum) -> {
             StockInPortfolioDTO stockInPortfolio = new StockInPortfolioDTO();
             stockInPortfolio.setSymbol(rs.getString("symbol"));
             stockInPortfolio.setName(rs.getString("name"));
@@ -53,12 +57,16 @@ public class PortfolioRepository {
         });
     }
 
+
     public CustomerRole getCustomerRole(String username) {
         String sql =
             "SELECT customer.role " +
             "FROM customer " +
-            "WHERE username = '" + username + "';";
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> CustomerRole.valueOf(rs.getString("role")));
+            "WHERE username = ?;";
+
+        return jdbcTemplate.queryForObject(sql,
+            (rs, rowNum) -> CustomerRole.valueOf(rs.getString("role")),
+            username);
     }
     
     public BigDecimal getBitcoinPrice() {
@@ -66,14 +74,16 @@ public class PortfolioRepository {
             "SELECT price " +
             "FROM cryptocurrency " +
             "WHERE symbol = 'BTC-USD';";
+
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getBigDecimal("price"));
     }
 
     public void deleteStock(String username, String type, String symbol) {
         String sql =
             "DELETE FROM customer_" + type + " " +
-            "WHERE " + type + "_symbol = '" + symbol + "' " +
-            "AND customer_id IN (SELECT id FROM customer WHERE username = '" + username + "');";
-        jdbcTemplate.update(sql);
+            "WHERE " + type + "_symbol = ? " +
+            "AND customer_id IN (SELECT id FROM customer WHERE username = ?);";
+
+        jdbcTemplate.update(sql, symbol, username);
     }
 }

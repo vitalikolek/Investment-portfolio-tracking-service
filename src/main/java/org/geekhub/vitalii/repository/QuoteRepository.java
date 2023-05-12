@@ -15,16 +15,17 @@ public class QuoteRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void addStock(String username , UserStockDTO stock) {
+    public void addStock(String username, UserStockDTO stock) {
         String sql =
             "INSERT INTO customer_" + stock.getType() + " (customer_id, " + stock.getType() + "_symbol, amount) " +
             "VALUES " +
                 "((SELECT id " +
                 "FROM customer " +
-                "WHERE username = '" + username + "'), '" + stock.getSymbol() + "', " + stock.getAmount() + ")" +
+                "WHERE username = ?), ?, ?) " +
             "ON CONFLICT (customer_id, " + stock.getType() + "_symbol) " +
-            "DO UPDATE SET amount = " + stock.getAmount() + ";";
+            "DO UPDATE SET amount = ?;";
 
-        jdbcTemplate.update(sql);
+        jdbcTemplate.update(sql, username, stock.getSymbol(), stock.getAmount(), stock.getAmount()
+        );
     }
 }

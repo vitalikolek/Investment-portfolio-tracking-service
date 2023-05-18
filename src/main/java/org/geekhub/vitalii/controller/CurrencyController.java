@@ -1,6 +1,6 @@
 package org.geekhub.vitalii.controller;
 
-import org.geekhub.vitalii.service.CurrencyService;
+import org.geekhub.vitalii.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +11,17 @@ import java.security.Principal;
 @Controller
 public class CurrencyController {
 
-    private final CurrencyService currencyService;
+    private final StockService stockService;
 
     @Autowired
-    public CurrencyController(CurrencyService currencyService) {
-        this.currencyService = currencyService;
+    public CurrencyController(StockService stockService) {
+        this.stockService = stockService;
     }
+
 
     @GetMapping("/currency")
     public String currency(Model model, Principal principal) {
-        model.addAttribute("currencies", currencyService.getCurrency());
+        model.addAttribute("currencies", stockService.getStock("currency", 1));
         model.addAttribute("principal", principal);
         return "currency";
     }

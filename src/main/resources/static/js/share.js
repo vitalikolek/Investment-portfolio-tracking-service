@@ -1,4 +1,4 @@
-function getCrypto() {
+function getShare() {
     const $usersView = $('#share-table tbody');
     let page = GetURLParameter('page');
 
@@ -11,7 +11,7 @@ function getCrypto() {
             cryptos.forEach(function (crypto) {
                 html += `
                     <tr>
-                        <th><a href="/quote/${crypto.symbol}?stock=share">${crypto.symbol}</th>
+                        <th><a href="/quote/${crypto.symbol}">${crypto.symbol}</th>
                         <td>${crypto.name}</td>
                         <td>${crypto.price}</td>
                         <td>${crypto.change}</td>
@@ -61,5 +61,5 @@ $('#search').submit(function(e) {
 });
 
 $(function() {
-    getCrypto();
+    getShare();
 });

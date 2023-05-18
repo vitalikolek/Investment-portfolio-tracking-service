@@ -8,26 +8,28 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ShareRepository {
+public class StockRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ShareRepository(JdbcTemplate jdbcTemplate) {
+    public StockRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<StockDTO> getShareInfo(int limit, int offset) {
+    public List<StockDTO> getStockInfo(String type, int limit, int offset) {
         String sql =
             "SELECT * " +
-            "FROM share " +
+            "FROM stock " +
+            "WHERE type IN (SELECT id FROM stock_type WHERE type = ?) " +
             "ORDER BY marketcap DESC " +
             "LIMIT ? OFFSET ?;";
 
         return jdbcTemplate.query(sql, ps -> {
-            ps.setInt(1, limit);
-            ps.setInt(2, offset);
-        },(rs, rowNum) -> {
+            ps.setString(1, type);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+        }, (rs, rowNum) -> {
             StockDTO stockDTO = new StockDTO();
             stockDTO.setSymbol(rs.getString( "symbol"));
             stockDTO.setName(rs.getString("name"));
@@ -42,14 +44,33 @@ public class ShareRepository {
         });
     }
 
-    public List<String> getAllShareSymbols() {
-        String sql = "SELECT share.symbol FROM share;";
+    public List<String> getAllStockSymbols() {
+        String sql = "SELECT stock.symbol FROM stock;";
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
     }
 
-    public int sharesCount() {
-        String sql = "SELECT COUNT(id) FROM share;";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+    public List<String> getCryptoSymbols() {
+        String sql =
+            "SELECT stock.symbol " +
+            "FROM stock " +
+            "WHERE type = 1";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
+    }
+
+    public List<String> getShareSymbols() {
+        String sql =
+            "SELECT stock.symbol " +
+            "FROM stock " +
+            "WHERE type = 3";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("symbol"));
+    }
+
+    public int getStockCount(String type) {
+        String sql =
+            "SELECT COUNT(id) " +
+            "FROM stock " +
+            "WHERE type IN (SELECT id FROM stock_type WHERE type = ?);";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, type);
         return count == null ? 0 : count;
     }
 }

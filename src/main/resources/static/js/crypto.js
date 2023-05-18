@@ -11,7 +11,7 @@ function getCrypto() {
             cryptos.forEach(function (crypto) {
                 html += `
                     <tr>
-                        <th><a href="/quote/${crypto.symbol}?stock=cryptocurrency">${crypto.symbol}</th>
+                        <th><a href="/quote/${crypto.symbol}">${crypto.symbol}</th>
                         <td>${crypto.name}</td>
                         <td>${crypto.price}</td>
                         <td>${crypto.change}</td>

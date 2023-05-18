@@ -18,27 +18,28 @@ public class SearchUserRepository {
     }
 
     public List<SearchUserDTO> findUser(String username) {
-        String sql = "SELECT username, " +
-            "COALESCE(COUNT(DISTINCT cc.cryptocurrency_symbol), 0) AS crypto, " +
-            "COALESCE(COUNT(DISTINCT c.currency_symbol), 0) AS currency, " +
-            "COALESCE(COUNT(DISTINCT cs.share_symbol), 0) AS share " +
-            "FROM customer " +
-                "JOIN customer_cryptocurrency cc ON customer.id = cc.customer_id " +
-                "JOIN customer_currency c ON customer.id = c.customer_id " +
-                "JOIN customer_share cs ON customer.id = cs.customer_id " +
-            "WHERE username ILIKE ? AND role = 'ROLE_USER' " +
-            "GROUP BY username " +
+        String sql =
+            "SELECT " +
+                "c.username," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 1 ), 0) AS crypto," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 2 ), 0) AS currency," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 3 ), 0) AS share " +
+            "FROM customer_stock " +
+                "JOIN customer c on c.id = customer_stock.customer_id " +
+                "JOIN stock s on s.symbol = customer_stock.stock_symbol " +
+            "WHERE customer_id IN (SELECT id FROM customer WHERE username = ?) AND role = 'ROLE_USER' " +
+            "GROUP BY c.username " +
             "UNION " +
-            "SELECT username, " +
-            "COALESCE(COUNT(DISTINCT cc.cryptocurrency_symbol), 0) AS crypto, " +
-            "COALESCE(COUNT(DISTINCT c.currency_symbol), 0) AS currency, " +
-            "COALESCE(COUNT(DISTINCT cs.share_symbol), 0) AS share " +
-            "FROM customer " +
-                "JOIN customer_cryptocurrency cc ON customer.id = cc.customer_id " +
-                "JOIN customer_currency c ON customer.id = c.customer_id " +
-                "JOIN customer_share cs ON customer.id = cs.customer_id " +
-            "WHERE NOT EXISTS (SELECT 1 FROM customer WHERE username ILIKE ?) AND role = 'ROLE_USER' " +
-            "GROUP BY username " +
+            "SELECT " +
+                "c.username," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 1 ), 0) AS crypto," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 2 ), 0) AS currency," +
+                "COALESCE (COUNT(DISTINCT s.type) FILTER ( WHERE s.type = 3 ), 0) AS share " +
+            "FROM customer_stock " +
+                "JOIN customer c on c.id = customer_stock.customer_id " +
+                "JOIN stock s on s.symbol = customer_stock.stock_symbol " +
+            "WHERE NOT EXISTS(SELECT id FROM customer WHERE username = ?)  AND role = 'ROLE_USER' " +
+            "GROUP BY c.username " +
             "ORDER BY crypto DESC, currency DESC, share DESC " +
             "LIMIT 10;";
 

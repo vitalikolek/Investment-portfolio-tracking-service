@@ -45,7 +45,7 @@ public class PortfolioService {
         return portfolioRepository.getCustomerRole(username);
     }
 
-    public void deleteStock(String username, String type, String symbol) {
-        portfolioRepository.deleteStock(username, type, symbol);
+    public void deleteStock(String username, String symbol) {
+        portfolioRepository.deleteStock(username, symbol);
     }
 }

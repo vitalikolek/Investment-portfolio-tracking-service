@@ -20,28 +20,31 @@ public class WordRepository {
     public List<StockStatsDTO> getStocksStats() {
         String sql =
             "SELECT " +
-            "'Cryptocurrency' AS asset_type, " +
-            "COUNT(*) AS asset_count, " +
-            "AVG(changeInPercent) AS avg_change_percent, " +
-            "SUM(marketcap) AS total_marketcap, " +
-            "SUM(volume) AS total_volume " +
-            "FROM cryptocurrency " +
-            "UNION ALL " +
-            "SELECT" +
-            "'Share' AS asset_type," +
-            "COUNT(*) AS asset_count," +
-            "AVG(changeInPercent) AS avg_change_percent, " +
-            "SUM(marketcap) AS total_marketcap, " +
-            "SUM(volume) AS total_volume " +
-            "FROM share " +
+                "'Cryptocurrency' AS asset_type, " +
+                "COUNT(*) AS asset_count, " +
+                "AVG(changeInPercent) AS avg_change_percent, " +
+                "SUM(marketcap) AS total_marketcap, " +
+                "SUM(volume) AS total_volume " +
+            "FROM stock " +
+            "WHERE type = 1 " +
             "UNION ALL " +
             "SELECT " +
-            "'Currency' AS asset_type," +
-            "COUNT(*) AS asset_count," +
-            "AVG(changeInPercent) AS avg_change_percent," +
-            "0 AS total_marketcap," +
-            "0 AS total_volume " +
-            "FROM currency;";
+                "'Currency' AS asset_type, " +
+                "COUNT(*) AS asset_count, " +
+                "AVG(changeInPercent) AS avg_change_percent, " +
+                "COALESCE(SUM(marketcap), 0) AS total_marketcap, " +
+                "COALESCE(SUM(volume), 0) AS total_volume " +
+            "FROM stock " +
+            "WHERE type = 2 " +
+            "UNION ALL " +
+            "SELECT " +
+                "'Share' AS asset_type, " +
+                "COUNT(*) AS asset_count, " +
+                "AVG(changeInPercent) AS avg_change_percent, " +
+                "SUM(marketcap) AS total_marketcap, " +
+                "SUM(volume) AS total_volume " +
+            "FROM stock " +
+            "WHERE type = 3;";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             StockStatsDTO stockStats = new StockStatsDTO();

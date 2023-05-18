@@ -65,7 +65,7 @@
             <tbody>
             <#list currencies as currency>
                 <tr>
-                    <th class="stockSymbolCol"><a href="/quote/${currency.symbol}?stock=currency">${currency.symbol}</th>
+                    <th class="stockSymbolCol"><a href="/quote/${currency.symbol}">${currency.symbol}</th>
                     <td class="stockNameCol">${currency.name}</td>
                     <td class="stockPriceCol">${currency.price}</td>
                     <td class="stockChangeCol">${currency.changeInPercent}</td>

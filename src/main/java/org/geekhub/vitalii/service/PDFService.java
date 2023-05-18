@@ -41,8 +41,8 @@ public class PDFService {
         Table table = new Table(5);
 
         table.addCell(new Cell().add(new Paragraph("Cryptocurrency value")));
-        table.addCell(new Cell().add(new Paragraph("Share value")));
         table.addCell(new Cell().add(new Paragraph("Currency value")));
+        table.addCell(new Cell().add(new Paragraph("Share value")));
         table.addCell(new Cell().add(new Paragraph("Total value")));
         table.addCell(new Cell().add(new Paragraph("Stock count")));
 

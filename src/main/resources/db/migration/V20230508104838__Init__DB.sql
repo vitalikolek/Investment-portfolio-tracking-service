@@ -1,38 +1,21 @@
-CREATE TABLE IF NOT EXISTS cryptocurrency (
+CREATE TABLE IF NOT EXISTS stock_type (
 id SERIAL PRIMARY KEY,
-symbol VARCHAR(20) UNIQUE NOT NULL,
-name VARCHAR(100),
-price NUMERIC,
-dayHigh NUMERIC,
-dayLow NUMERIC,
-change NUMERIC,
-changeInPercent NUMERIC,
-marketcap NUMERIC,
-volume BIGINT
+type VARCHAR(100) UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS share (
+CREATE TABLE IF NOT EXISTS stock (
 id SERIAL PRIMARY KEY,
 symbol VARCHAR(20) UNIQUE NOT NULL,
+type INTEGER NOT NULL,
 name VARCHAR(100),
-price NUMERIC,
-dayHigh NUMERIC,
-dayLow NUMERIC,
-change NUMERIC,
-changeInPercent NUMERIC,
-marketcap NUMERIC,
-volume BIGINT
-);
-
-CREATE TABLE IF NOT EXISTS currency (
-id SERIAL PRIMARY KEY,
-symbol VARCHAR(20) UNIQUE NOT NULL,
-name VARCHAR(100),
-price NUMERIC,
-dayHigh NUMERIC,
-dayLow NUMERIC,
-change NUMERIC,
-changeInPercent NUMERIC
+price NUMERIC DEFAULT 0,
+dayHigh NUMERIC DEFAULT 0,
+dayLow NUMERIC DEFAULT 0,
+change NUMERIC DEFAULT 0,
+changeInPercent NUMERIC DEFAULT 0,
+marketcap NUMERIC DEFAULT 0,
+volume BIGINT DEFAULT 0,
+FOREIGN KEY (type) REFERENCES stock_type(id)
 );
 
 CREATE TABLE IF NOT EXISTS customer (
@@ -44,29 +27,11 @@ role VARCHAR(50) NOT NULL,
 creation_time DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS customer_cryptocurrency (
-customer_id integer NOT NULL,
-cryptocurrency_symbol VARCHAR(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS customer_stock (
+customer_id INTEGER NOT NULL,
+stock_symbol VARCHAR(20) NOT NULL,
 amount NUMERIC NOT NULL,
-PRIMARY KEY (customer_id, cryptocurrency_symbol),
+PRIMARY KEY (customer_id, stock_symbol),
 FOREIGN KEY (customer_id) REFERENCES customer (id),
-FOREIGN KEY (cryptocurrency_symbol) REFERENCES cryptocurrency(symbol)
-);
-
-CREATE TABLE IF NOT EXISTS customer_share (
-customer_id integer NOT NULL,
-share_symbol VARCHAR(20) NOT NULL,
-amount NUMERIC NOT NULL,
-PRIMARY KEY (customer_id, share_symbol),
-FOREIGN KEY (customer_id) REFERENCES share (id),
-FOREIGN KEY (share_symbol) REFERENCES share (symbol)
-);
-
-CREATE TABLE IF NOT EXISTS customer_currency (
-customer_id integer NOT NULL,
-currency_symbol VARCHAR(20) NOT NULL,
-amount NUMERIC NOT NULL,
-PRIMARY KEY (customer_id, currency_symbol),
-FOREIGN KEY (customer_id) REFERENCES currency (id),
-FOREIGN KEY (currency_symbol) REFERENCES currency (symbol)
+FOREIGN KEY (stock_symbol) REFERENCES stock(symbol)
 );

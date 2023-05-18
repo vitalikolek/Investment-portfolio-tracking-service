@@ -42,11 +42,10 @@ $(function() {
 
         const path = window.location.pathname;
         const symbol = path.split('/')[2];
-        const type = GetURLParameter('stock');
+        console.log(symbol);
 
         let stock = {
             symbol: symbol,
-            type: type,
             amount: $("#amount").val()
         };
 
@@ -65,14 +64,3 @@ $(function() {
         });
     });
 });
-
-function GetURLParameter(sParam) {
-    let sPageURL = window.location.search.substring(1);
-    let sURLVariables = sPageURL.split('&');
-    for (let i = 0; i < sURLVariables.length; i++) {
-        let sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1];
-        }
-    }
-}

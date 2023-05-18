@@ -21,31 +21,14 @@ public class PortfolioRepository {
 
     public List<StockInPortfolioDTO> getCustomerStocks(String username) {
         String sql =
-            "SELECT cc.cryptocurrency_symbol AS symbol, s.name, cc.amount AS amount, s.price, s.changeinpercent, " +
+            "SELECT cs.stock_symbol AS symbol, s.name, cs.amount AS amount, s.price, s.changeinpercent, " +
             "'cryptocurrency' AS type " +
-            "FROM customer_cryptocurrency AS cc " +
-            "JOIN customer AS c ON cc.customer_id = c.id " +
-            "JOIN cryptocurrency AS s on cc.cryptocurrency_symbol = s.symbol " +
-            "WHERE c.username = ? " +
-            "UNION ALL " +
-            "SELECT cs.share_symbol AS symbol, s.name, cs.amount AS amount, s.price, s.changeinpercent, 'share' AS type " +
-            "FROM customer_share AS cs " +
-            "JOIN customer AS c ON cs.customer_id = c.id " +
-            "JOIN share s on cs.customer_id = s.id " +
-            "WHERE c.username = ? " +
-            "UNION ALL " +
-            "SELECT cs.currency_symbol AS symbol, s.name, cs.amount AS amount, s.price, s.changeinpercent, " +
-            "'currency' AS type " +
-            "FROM customer_currency AS cs " +
-            "JOIN customer AS c ON cs.customer_id = c.id " +
-            "JOIN currency s on s.id = cs.customer_id " +
+            "FROM customer_stock AS cs " +
+            "JOIN customer c on cs.customer_id = c.id " +
+            "JOIN stock s ON cs.stock_symbol = s.symbol " +
             "WHERE c.username = ?;";
 
-        return jdbcTemplate.query(sql, ps -> {
-            ps.setString(1, username);
-            ps.setString(2, username);
-            ps.setString(3, username);
-        }, (rs, rowNum) -> {
+        return jdbcTemplate.query(sql, ps -> ps.setString(1, username), (rs, rowNum) -> {
             StockInPortfolioDTO stockInPortfolio = new StockInPortfolioDTO();
             stockInPortfolio.setSymbol(rs.getString("symbol"));
             stockInPortfolio.setName(rs.getString("name"));
@@ -72,16 +55,16 @@ public class PortfolioRepository {
     public BigDecimal getBitcoinPrice() {
         String sql = 
             "SELECT price " +
-            "FROM cryptocurrency " +
+            "FROM stock " +
             "WHERE symbol = 'BTC-USD';";
 
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getBigDecimal("price"));
     }
 
-    public void deleteStock(String username, String type, String symbol) {
+    public void deleteStock(String username, String symbol) {
         String sql =
-            "DELETE FROM customer_" + type + " " +
-            "WHERE " + type + "_symbol = ? " +
+            "DELETE FROM customer_stock " +
+            "WHERE stock_symbol = ? " +
             "AND customer_id IN (SELECT id FROM customer WHERE username = ?);";
 
         jdbcTemplate.update(sql, symbol, username);

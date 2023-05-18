@@ -71,7 +71,7 @@
             <tbody>
                 <#list customerStocks as stock>
                     <tr>
-                        <th class="stockSymbolCol"><a href="/quote/${stock.symbol}?stock=${stock.type}">${stock.symbol}</th>
+                        <th class="stockSymbolCol"><a href="/quote/${stock.symbol}">${stock.symbol}</th>
                         <td class="stockNameCol">${stock.name}</td>
                         <td class="stockPriceCol">${stock.price}</td>
                         <td class="stockChangeInPercentCol">${stock.changeInPercent}</td>
@@ -79,7 +79,7 @@
                         <td class="stockVolumeCol">${stock.value}</td>
                         <#if !username??>
                             <td class="deleteStockCol">
-                                <form method="post" action="/delete/${stock.type}/${stock.symbol}">
+                                <form method="post" action="/delete/${stock.symbol}">
                                     <button type="submit" class="btn btn-warning btn-sm text-white">Delete</button>
                                 </form>
                             </td>

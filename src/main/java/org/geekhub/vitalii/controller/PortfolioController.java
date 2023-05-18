@@ -41,9 +41,9 @@ public class PortfolioController {
         return "portfolio";
     }
 
-    @PostMapping("/delete/{type}/{symbol}")
-    public String delete(Principal principal, @PathVariable("symbol") String symbol, @PathVariable("type") String type) {
-        portfolioService.deleteStock(principal.getName(), type, symbol);
+    @PostMapping("/delete/{symbol}")
+    public String delete(Principal principal, @PathVariable("symbol") String symbol) {
+        portfolioService.deleteStock(principal.getName(), symbol);
         return "redirect:/portfolio";
     }
 }

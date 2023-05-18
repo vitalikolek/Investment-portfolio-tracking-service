@@ -27,9 +27,9 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String register(@ModelAttribute("customer") Customer customer) {
-        if (registrationService.isCustomerExist(customer.getUsername(), customer.getEmail())) {
-            return "redirect:/registration";
-        }
+//        if (registrationService.isCustomerExist(customer.getUsername(), customer.getEmail())) {
+//            return "redirect:/registration";
+//        }
         registrationService.register(customer);
         return "redirect:/login";
     }

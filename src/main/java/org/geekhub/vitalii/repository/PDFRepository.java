@@ -21,9 +21,8 @@ public class PDFRepository {
             "COALESCE(SUM(cs.amount * s.price) FILTER ( WHERE s.type = 1 ), 0) AS cryptocurrency_value, " +
             "COALESCE(SUM(cs.amount * s.price) FILTER ( WHERE s.type = 2 ), 0) AS currency_value, " +
             "COALESCE(SUM(cs.amount * s.price) FILTER ( WHERE s.type = 3 ), 0) AS share_value, " +
-            "COALESCE(SUM(cs.amount * s.price), 0) + COALESCE(SUM(cs.amount * s.price), 0) + " +
             "COALESCE(SUM(cs.amount * s.price), 0) AS total_value, " +
-            "COALESCE(COUNT(DISTINCT cs.stock_symbol), 0) AS stock_count " +
+            "COALESCE(COUNT(cs.stock_symbol), 0) AS stock_count " +
             "FROM customer AS c " +
             "LEFT JOIN customer_stock cs on c.id = cs.customer_id " +
             "LEFT JOIN stock s on s.symbol = cs.stock_symbol " +

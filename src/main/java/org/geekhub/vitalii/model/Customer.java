@@ -25,8 +25,8 @@ public class Customer {
         return email;
     }
 
-    public CustomerRole getRole() {
-        return role;
+    public Integer getRole() {
+        return role.getRole();
     }
 
     public LocalDate getCreationTime() {

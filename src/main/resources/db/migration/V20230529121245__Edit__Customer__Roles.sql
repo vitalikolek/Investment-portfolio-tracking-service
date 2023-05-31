@@ -1,0 +1,21 @@
+ALTER TABLE customer
+    DROP COLUMN IF EXISTS role;
+
+CREATE TABLE IF NOT EXISTS role (
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(25) UNIQUE
+);
+
+INSERT INTO role(role)
+VALUES
+    ('ROLE_USER'),
+    ('ROLE_COMPANY')
+ON CONFLICT DO NOTHING;
+
+ALTER TABLE customer
+    ADD COLUMN IF NOT EXISTS role integer;
+
+ALTER TABLE customer
+    ADD CONSTRAINT customer_role_key
+    FOREIGN KEY (role)
+    REFERENCES role(id);

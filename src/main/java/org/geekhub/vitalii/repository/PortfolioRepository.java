@@ -43,8 +43,9 @@ public class PortfolioRepository {
 
     public CustomerRole getCustomerRole(String username) {
         String sql =
-            "SELECT customer.role " +
-            "FROM customer " +
+            "SELECT r.role " +
+            "FROM customer с " +
+            "JOIN role r on с.role = r.id " +
             "WHERE username = ?;";
 
         return jdbcTemplate.queryForObject(sql,

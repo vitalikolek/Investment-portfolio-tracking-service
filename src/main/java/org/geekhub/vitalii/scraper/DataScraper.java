@@ -25,7 +25,7 @@ public class DataScraper {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(fixedDelay = 300000)
+    //@Scheduled(fixedDelay = 300000)
     public void scrapeAndSaveAllData() {
         scrapeAndSave(stockRepository.getAllStockSymbols());
     }

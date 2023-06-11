@@ -25,8 +25,8 @@
         <div class="mb-3">
             <label class="form-label" for="role">Role:</label>
             <select id="role" class="form-select" name="role">
-                <option value="ROLE_USER" selected>User</option>
-                <option value="ROLE_COMPANY">Company</option>
+                <option value="1" selected>User</option>
+                <option value="2">Company</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary mb-3">Sign In</button>

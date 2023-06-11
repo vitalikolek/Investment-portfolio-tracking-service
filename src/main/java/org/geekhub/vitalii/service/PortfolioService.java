@@ -1,9 +1,12 @@
 package org.geekhub.vitalii.service;
 
 import org.geekhub.vitalii.dto.StockInPortfolioDTO;
-import org.geekhub.vitalii.model.CustomerRole;
+import org.geekhub.vitalii.entity.Customer;
+import org.geekhub.vitalii.repository.CustomerRepository;
 import org.geekhub.vitalii.repository.PortfolioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,10 +17,12 @@ import java.util.List;
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public PortfolioService(PortfolioRepository portfolioRepository) {
+    public PortfolioService(PortfolioRepository portfolioRepository, CustomerRepository customerRepository) {
         this.portfolioRepository = portfolioRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<StockInPortfolioDTO> getCustomerStocks(String username) {
@@ -41,8 +46,9 @@ public class PortfolioService {
         return totalValue.divide(portfolioRepository.getBitcoinPrice(), RoundingMode.HALF_DOWN);
     }
 
-    public CustomerRole getCustomerRole(String username) {
-        return portfolioRepository.getCustomerRole(username);
+    public String getCustomerRole(String username) {
+        Example<Customer> usernameExample = Example.of(new Customer(null, username, null, null, null, null));
+        return customerRepository.findBy(usernameExample, FluentQuery.FetchableFluentQuery::first).get().getRole().getRole();
     }
 
     public void deleteStock(String username, String symbol) {

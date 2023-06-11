@@ -1,6 +1,5 @@
 package org.geekhub.vitalii.controller;
 
-import org.geekhub.vitalii.model.CustomerRole;
 import org.geekhub.vitalii.service.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class PortfolioController {
 
     @GetMapping("/portfolio/{username}")
     public String portfolio(Model model, @PathVariable("username") String username) {
-        if (portfolioService.getCustomerRole(username).equals(CustomerRole.ROLE_COMPANY)) {
+        if (portfolioService.getCustomerRole(username).equals("ROLE_COMPANY")) {
             return "redirect:/search";
         }
         model.addAttribute("customerStocks", portfolioService.getCustomerStocks(username));

@@ -1,7 +1,6 @@
 package org.geekhub.vitalii.repository;
 
 import org.geekhub.vitalii.dto.StockInPortfolioDTO;
-import org.geekhub.vitalii.model.CustomerRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -38,19 +37,6 @@ public class PortfolioRepository {
             stockInPortfolio.setType(rs.getString("type"));
             return stockInPortfolio;
         });
-    }
-
-
-    public CustomerRole getCustomerRole(String username) {
-        String sql =
-            "SELECT r.role " +
-            "FROM customer с " +
-            "JOIN role r on с.role = r.id " +
-            "WHERE username = ?;";
-
-        return jdbcTemplate.queryForObject(sql,
-            (rs, rowNum) -> CustomerRole.valueOf(rs.getString("role")),
-            username);
     }
     
     public BigDecimal getBitcoinPrice() {

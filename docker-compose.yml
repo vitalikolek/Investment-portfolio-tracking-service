@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  client-backend:
+    image: client:0.0.1
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8181:8181"
+    depends_on:
+      - postgres
+    environment:
+      - SERVER_PORT=8181
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    expose:
+      - "5434"
+    ports:
+      - "5434:5434"
+    command: -p 5434
+    environment:
+      - POSTGRES_PASSWORD=fps123
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=InvestmentPortfolio

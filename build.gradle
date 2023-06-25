@@ -28,6 +28,14 @@ dependencies {
     implementation 'org.flywaydb:flyway-core:8.3.0'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.geekhub.vitalii.Main'
+        )
+    }
+}
+
 test {
     useJUnitPlatform()
 }

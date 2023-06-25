@@ -5,7 +5,6 @@ INSERT INTO stock(symbol, type) VALUES
 ('GOOGL', 3),
 ('AMD', 3),
 ('AAPL', 3),
-('AUY', 3),
 ('BAC', 3),
 ('APE', 3),
 ('NVDA', 3),

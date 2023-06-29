@@ -2,7 +2,7 @@
 ---
 
 ## Technology Stack
-1. Java 8
+1. Java 11
 2. Spring Boot 2.6.7
 3. Freemarker
 4. JavaScript / jQuery / ajax

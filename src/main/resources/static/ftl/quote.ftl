@@ -54,7 +54,7 @@
             <h5><strong>Price:</strong> ${stockInfo.price}</h5>
             <h5><strong>Day High:</strong> ${stockInfo.dayHigh}</h5>
             <h5><strong>Day Low:</strong> ${stockInfo.dayLow}</h5>
-            <h5><strong>Change:</strong> ${stockInfo.changeInPercent}</h5>
+            <h5><strong>Change:</strong> ${stockInfo.change}</h5>
             <h5><strong>Change in Percent:</strong> ${stockInfo.changeInPercent}</h5>
             <h5><strong>Market Cap:</strong> <#if stockInfo.marketCap??>${stockInfo.marketCap}<#else>N/A</#if></h5>
             <h5><strong>Volume:</strong> <#if stockInfo.volume??>${stockInfo.volume}<#else>N/A</#if></h5>
